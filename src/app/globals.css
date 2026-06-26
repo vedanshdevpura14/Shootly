@@ -1,26 +1,92 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    font-family: var(--font-inter), sans-serif;
+    scroll-behavior: smooth;
+  }
+  .font-serif {
+    font-family: var(--font-playfair), serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.hero-gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(2, 6, 23, 0.82) 0%,
+    rgba(15, 23, 42, 0.65) 35%,
+    rgba(15, 23, 42, 0.55) 60%,
+    rgba(2, 6, 23, 0.78) 100%
+  );
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 40%, #D97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+/* Custom Animations & Utilities */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes chipIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+.filter-chip { animation: chipIn 0.2s ease-out; }
+/* Responsive Navbar */
+@media (min-width: 768px) {
+  .hidden.md\:flex { display: flex !important; }
+  .md\:\!hidden { display: none !important; }
+}
+@media (max-width: 767px) {
+  .hidden.md\:flex { display: none !important; }
+  .md\:\!hidden { display: block !important; }
+}
+.masonry-grid {
+  columns: 2;
+  column-gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .masonry-grid {
+    columns: 3;
+  }
+}
+
+.masonry-item {
+  break-inside: avoid;
+}
+/* Navbar responsive classes */
+.shootly-desktop-nav {
+  display: none;
+}
+
+.shootly-desktop-auth {
+  display: none;
+}
+
+.shootly-mobile-btn {
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .shootly-desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .shootly-desktop-auth {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .shootly-mobile-btn {
+    display: none;
+  }
 }

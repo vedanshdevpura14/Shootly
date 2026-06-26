@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Professional {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name     String
+  slug     String
+  type     String // Photographer, Videographer, Reel Creator, Editor
+  city     String
+  rating   Float   @default(0)
+  reviews  Int     @default(0)
+  category String
+  price    Int
+  unit     String? // e.g., "/photo" or "/video"
+  image    String
+  verified Boolean @default(false)
+  tags     String // Comma-separated for SQLite (we'll parse in JS)
+  aiScore  Int     @default(80)
+
+  // Relations
+  bookings   Booking[]
+  portfolios Portfolio[]
+}
+
+model Booking {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  clientName String
+  eventDate  String
+  eventType  String
+  message    String?
+  status     String  @default("Pending") // Pending, Accepted, Declined, Completed
+  amount     Int
+
+  // Relations
+  professionalId Int
+  professional   Professional @relation(fields: [professionalId], references: [id])
+}
+
+model Portfolio {
+  id       Int    @id @default(autoincrement())
+  imageUrl String
+
+  professionalId Int
+  professional   Professional @relation(fields: [professionalId], references: [id])
+}
