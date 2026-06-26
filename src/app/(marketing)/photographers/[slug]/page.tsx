@@ -90,11 +90,11 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
       <section className="bg-slate-950 border-y border-slate-800">
         <div className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between flex-wrap gap-4">
           <div className="flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <span key={tag.trim()} className="px-3 py-1 bg-white/5 border border-white/10 text-slate-300 text-xs font-medium rounded-full">
-                {tag.trim()}
-              </span>
-            ))}
+            {tags.map((tag: string) => (
+  <span key={tag.trim()} className="px-3 py-1 bg-white/5 border border-white/1...">
+    {tag.trim()}
+  </span>
+))}
           </div>
           {pro.price > 0 && (
             <div className="text-right">
@@ -121,20 +121,21 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {pro.portfolios.map((item) => (
-              <div key={item.id} className="group relative aspect-square rounded-xl overflow-hidden border border-slate-800 bg-slate-900">
-                <img
-                  src={item.imageUrl}
-                  alt={item.caption || "Portfolio"}
-                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-                />
-                {item.caption && (
-                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
-                    <p className="text-white text-xs">{item.caption}</p>
-                  </div>
-                )}
-              </div>
-            ))}
+            {pro.portfolios.map((item: { id: string; imageUrl: string; caption: string | null }) => (
+  <div key={item.id} className="group relative aspect-square rounded-xl overflow-hidden border border-slate-800 bg-slate-900">
+    <img
+      src={item.imageUrl}
+      alt={item.caption || "Portfolio"}
+      className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+    />
+    {item.caption && (
+      <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
+        <p className="text-white text-xs">{item.caption}</p>
+      </div>
+    )}
+  </div>
+))}
+
           </div>
         )}
       </section>
