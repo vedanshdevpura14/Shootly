@@ -1,6 +1,5 @@
 import { Professional } from '../types/photographer';
-import { dummyProfessionals } from '../data/dummyData';
-
+import { professionals } from "../data/dummyData";
 // Simulated delay helper
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -14,7 +13,7 @@ export const api = {
     specialty?: string;
   }): Promise<Professional[]> {
     await delay(300); // mock network latency
-    let results = [...dummyProfessionals];
+    let results = [...professionals];
 
     if (filters) {
       if (filters.category) {
@@ -22,11 +21,13 @@ export const api = {
       }
       if (filters.location) {
         results = results.filter((p) =>
-          p.location.toLowerCase().includes(filters.location!.toLowerCase())
+          p.city.toLowerCase().includes(filters.location!.toLowerCase())
         );
       }
       if (filters.specialty) {
-        results = results.filter((p) => p.specialties.includes(filters.specialty!));
+results = results.filter((p) =>
+  p.tags.includes(filters.specialty!)
+);
       }
     }
 
@@ -38,7 +39,7 @@ export const api = {
    */
   async getProfessionalById(id: string): Promise<Professional | null> {
     await delay(200);
-    const item = dummyProfessionals.find((p) => p.id === id);
+const item = professionals.find((p) => p.id.toString() === id);
     return item || null;
   },
 

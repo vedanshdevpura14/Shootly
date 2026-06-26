@@ -1,5 +1,6 @@
 import { Professional } from "@/types/photographer";
 
+
 export const professionals: Professional[] = [
   // Photographers
   { id: 1, name: "Rahul Sharma", type: "Photographer", city: "Jaipur", rating: 4.8, reviews: 127, category: "Wedding", price: 15000, image: "https://picsum.photos/seed/rahul-photo/600/750", verified: true, tags: ["Pre-Wedding", "Candid"], aiScore: 96 },

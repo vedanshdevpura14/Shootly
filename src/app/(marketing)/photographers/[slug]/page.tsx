@@ -121,7 +121,7 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {pro.portfolios.map((item: { id: string; imageUrl: string; caption: string | null }) => (
+            {pro.portfolios.map((item: { id: number; imageUrl: string; caption: string | null }) => (
   <div key={item.id} className="group relative aspect-square rounded-xl overflow-hidden border border-slate-800 bg-slate-900">
     <img
       src={item.imageUrl}

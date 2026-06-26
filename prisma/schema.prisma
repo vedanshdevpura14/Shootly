@@ -1,35 +1,34 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
   provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model Professional {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  name      String
-  slug      String   @unique
-  type      String   @default("Photographer")
-  city      String   @default("")
-  rating    Float    @default(0)
-  reviews   Int      @default(0)
-  category  String   @default("Wedding")
-  price     Int      @default(0)
-  unit      String?
-  image     String   @default("")
-  verified  Boolean  @default(false)
-  tags      String   @default("")
-  aiScore   Int      @default(80)
-  bio       String   @default("")   // ← ADD THIS LINE
-  // Link to User
-  userId    String?  @unique
-  user      User?    @relation(fields: [userId], references: [id])
-
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  name       String
+  slug       String      @unique
+  type       String      @default("Photographer")
+  city       String      @default("")
+  rating     Float       @default(0)
+  reviews    Int         @default(0)
+  category   String      @default("Wedding")
+  price      Int         @default(0)
+  unit       String?
+  image      String      @default("")
+  verified   Boolean     @default(false)
+  tags       String      @default("")
+  aiScore    Int         @default(80)
+  bio        String      @default("")
+  userId     String?     @unique
   bookings   Booking[]
   portfolios Portfolio[]
+  user       User?       @relation(fields: [userId], references: [id])
 }
 
 model User {
@@ -44,32 +43,28 @@ model User {
 }
 
 model Booking {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-
-  clientName  String
-  clientEmail String? 
-  eventStartDate  DateTime?
-  eventEndDate    DateTime?
-  eventType   String
-  message     String?
-  status      String  @default("Pending") // Pending, Accepted, Declined, Completed
-  amount      Int
-
-  // Relations
+  id             Int          @id @default(autoincrement())
+  createdAt      DateTime     @default(now())
+  clientName     String
+  clientEmail    String?
+  eventStartDate DateTime?
+  eventEndDate   DateTime?
+  eventType      String
+  message        String?
+  status         String       @default("Pending")
+  amount         Int
   professionalId Int
   professional   Professional @relation(fields: [professionalId], references: [id])
 }
 
 model Portfolio {
-  id        Int      @id @default(autoincrement())
-  imageUrl  String
-  caption   String? 
- 
-
+  id             Int          @id @default(autoincrement())
+  imageUrl       String
   professionalId Int
+  caption        String?
   professional   Professional @relation(fields: [professionalId], references: [id])
 }
+
 model CityWaitlist {
   id        String   @id @default(cuid())
   email     String
