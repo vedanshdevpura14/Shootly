@@ -14,7 +14,7 @@ export default function ReelCard({ creator }: ReelCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   
   // Find first video reel in portfolio, else use mock URL
-  const reelVideo = creator.portfolio.find((item) => item.type === 'video');
+  const reelVideo = creator.portfolio?.find((item) => item.type === 'video');
   const videoUrl = reelVideo?.url || 'https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-light-futuristic-portrait-42357-large.mp4';
   
   const handleMouseEnter = () => {
@@ -99,9 +99,11 @@ export default function ReelCard({ creator }: ReelCardProps) {
               <span className="text-xs font-bold text-white">{creator.rating}</span>
               <span className="text-[10px] text-zinc-400">({creator.reviewCount})</span>
             </div>
-            <span className="text-[10px] text-zinc-300 font-medium px-2 py-0.5 bg-white/10 rounded-md">
-              {creator.specialties[0]}
-            </span>
+            {creator.specialties && creator.specialties.length > 0 && (
+              <span className="text-[10px] text-zinc-300 font-medium px-2 py-0.5 bg-white/10 rounded-md">
+                {creator.specialties[0]}
+              </span>
+            )}
           </div>
 
           <div className="space-y-0.5">
@@ -126,7 +128,7 @@ export default function ReelCard({ creator }: ReelCardProps) {
             Rate
           </span>
           <div className="text-xs font-bold text-amber-500">
-            ₹{creator.startingPrice.toLocaleString('en-IN')}{' '}
+            ₹{(creator.startingPrice ?? 0).toLocaleString('en-IN')}{' '}
             <span className="text-[9px] font-normal text-zinc-400">/ reel</span>
           </div>
         </div>

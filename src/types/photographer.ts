@@ -19,4 +19,13 @@ export interface Professional {
   specialties?: string[]; // Optional, use ?. or ||
   startingPrice?: number; // Optional, use ?. or ||
   experienceYears?: number;
+  avatar?: string;
+  portfolio?: PortfolioItem[];
+}
+
+export interface PortfolioItem {
+  id: number | string;
+  type: 'video' | 'image' | string;
+  url: string;
+  title?: string;
 }

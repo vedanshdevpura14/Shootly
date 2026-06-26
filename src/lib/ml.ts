@@ -31,17 +31,17 @@ export const mlTracker = {
     let score = 50; // base score out of 100
 
     // Match location
-    if (clientPreferences.locations && clientPreferences.locations.includes(professional.location)) {
+    if (clientPreferences.locations && professional.location && clientPreferences.locations.includes(professional.location)) {
       score += 15;
     }
 
     // Match pricing constraint
-    if (clientPreferences.maxPrice && professional.startingPrice <= clientPreferences.maxPrice) {
+    if (clientPreferences.maxPrice && professional.startingPrice && professional.startingPrice <= clientPreferences.maxPrice) {
       score += 15;
     }
 
     // Match specialty alignment
-    if (clientPreferences.preferredSpecialties) {
+    if (clientPreferences.preferredSpecialties && professional.specialties) {
       const matchCount = professional.specialties.filter((s) =>
         clientPreferences.preferredSpecialties!.includes(s)
       ).length;

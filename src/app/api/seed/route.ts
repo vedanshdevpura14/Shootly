@@ -44,11 +44,11 @@ export async function GET() {
 
       await prisma.booking.createMany({
         data: [
-          { clientName: "Ananya Sethi", eventDate: "Dec 15, 2024", eventType: "Wedding", status: "Pending", amount: 35000, professionalId: rahul.id },
-          { clientName: "Vikram Rao", eventDate: "Dec 12, 2024", eventType: "Product", status: "Accepted", amount: 20000, professionalId: rahul.id },
-          { clientName: "Meera Kapoor", eventDate: "Dec 10, 2024", eventType: "Portrait", status: "Completed", amount: 12000, professionalId: rahul.id },
-          { clientName: "Arjun Nair", eventDate: "Dec 8, 2024", eventType: "Pre-Wedding", status: "Completed", amount: 15000, professionalId: rahul.id },
-          { clientName: "Sneha Iyer", eventDate: "Dec 5, 2024", eventType: "Reels", status: "Pending", amount: 8000, professionalId: rahul.id },
+          { clientName: "Ananya Sethi", eventStartDate: new Date("2024-12-15"), eventEndDate: new Date("2024-12-15"), eventType: "Wedding", status: "Pending", amount: 35000, professionalId: rahul.id },
+          { clientName: "Vikram Rao", eventStartDate: new Date("2024-12-12"), eventEndDate: new Date("2024-12-12"), eventType: "Product", status: "Accepted", amount: 20000, professionalId: rahul.id },
+          { clientName: "Meera Kapoor", eventStartDate: new Date("2024-12-10"), eventEndDate: new Date("2024-12-10"), eventType: "Portrait", status: "Completed", amount: 12000, professionalId: rahul.id },
+          { clientName: "Arjun Nair", eventStartDate: new Date("2024-12-08"), eventEndDate: new Date("2024-12-08"), eventType: "Pre-Wedding", status: "Completed", amount: 15000, professionalId: rahul.id },
+          { clientName: "Sneha Iyer", eventStartDate: new Date("2024-12-05"), eventEndDate: new Date("2024-12-05"), eventType: "Reels", status: "Pending", amount: 8000, professionalId: rahul.id },
         ],
       });
     }

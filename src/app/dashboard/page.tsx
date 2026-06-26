@@ -8,7 +8,8 @@ import Link from "next/link";
 interface Booking {
   id: number;
   clientName: string;
-  eventDate: string;
+  eventStartDate: string | null;
+  eventEndDate: string | null;
   eventType: string;
   status: string;
   amount: number;
@@ -41,6 +42,17 @@ export default function DashboardPage() {
       })
       .catch(() => {});
   }, []);
+
+  const formatDate = (dateStr: string | null) => {
+    if (!dateStr) return "TBD";
+    return new Date(dateStr).toLocaleDateString("en-US", { day: 'numeric', month: 'short' });
+  };
+
+  const formatDateRange = (start: string | null, end: string | null) => {
+    if (!start && !end) return "Date not set";
+    if (!end) return formatDate(start);
+    return `${formatDate(start)} - ${formatDate(end)}`;
+  };
 
   const totalBookings = bookings.length;
   const pendingRequests = bookings.filter(b => b.status === "Pending").length;
@@ -135,7 +147,7 @@ export default function DashboardPage() {
                   {bookings.map((booking) => (
                     <tr key={booking.id} className="hover:bg-slate-50 transition-colors">
                       <td className="px-6 py-4 text-sm font-medium text-slate-900">{booking.clientName}</td>
-                      <td className="px-6 py-4 text-sm text-slate-500">{booking.eventDate}</td>
+                      <td className="px-6 py-4 text-sm text-slate-500">{formatDateRange(booking.eventStartDate, booking.eventEndDate)}</td>
                       <td className="px-6 py-4 text-sm text-slate-500">{booking.eventType}</td>
                       <td className="px-6 py-4">
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider ${
@@ -163,7 +175,7 @@ export default function DashboardPage() {
                     }`}>{booking.status}</span>
                   </div>
                   <div className="flex items-center justify-between text-xs text-slate-500">
-                    <span>{booking.eventDate} • {booking.eventType}</span>
+                    <span>{formatDateRange(booking.eventStartDate, booking.eventEndDate)} • {booking.eventType}</span>
                     <span className="text-sm font-semibold text-slate-900">₹{booking.amount.toLocaleString()}</span>
                   </div>
                 </div>
